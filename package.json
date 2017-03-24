@@ -1,11 +1,14 @@
 {
   "name": "cli-helper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generic Helpers for file I/O",
   "main": "./helper.js",
   "scripts": {
 
   },
+  "bin": {
+    "cli-helper": "./helper.js"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mitzerh/node-cli-helpers.git"
