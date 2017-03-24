@@ -10,9 +10,25 @@ npm install cli-helper
 
 **Include:**
 
+**Include as a constructor class:**
+
 ```js
-var Helper = require('cli-helper');
+// include as a constructor class
+var Helper = require('cli-helper').constructor;
+
+class MyHelper extends Helper {
+	. . .
+}
 ```
+
+**Include as an instance:**
+
+```js
+var Helper = require('cli-helper').instance;
+
+Helper.getOpt('foo');
+```
+
 
 ## Functions
 

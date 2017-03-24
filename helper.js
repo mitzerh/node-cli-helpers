@@ -166,4 +166,9 @@ class Helper {
 
 }
 
-module.exports = new Helper;
+var instance = new Helper();
+
+module.exports = {
+    constructor: Helper,
+    instance: instance
+};
