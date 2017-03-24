@@ -156,10 +156,11 @@ class Helper {
      * Base64 encode/decode
      *
      * @param  {String}  str string contents
-     * @param  {Boolean} [dec=false] decode/encode mode (defaults to encode)
+     * @param  {Boolean} [dec] decode/encode mode (defaults to encode)
      * @return String
      */
-    base64(str, dec = false) {
+    base64(str, dec) {
+        dec = (typeof dec === 'boolean' && dec) ? true : false;
         return (dec) ? (new Buffer(str, 'base64').toString('ascii')) : (new Buffer(str).toString('base64'));
     }
 
