@@ -32,7 +32,7 @@ Helper.getOpt('foo');
 
 ## Functions
 
-* **`Helper.getOpt([String:id])`**
+### **`Helper.getOpt([String:id])`**
 
 Get arguments passed using the `--` convention.
 
@@ -45,7 +45,7 @@ Helper.getOpt('foo');
 // -> 'bar'
 ```
 
-* **`Helper.getOptArg([String:id])`**
+### **`Helper.getOptArg([String:id])`**
 
 Get non key-value pair arguments
 
@@ -61,7 +61,7 @@ Helper.getOptArg('bar');
 // -> false
 ```
 
-* **`Helper.getRawArgs()`**
+### **`Helper.getRawArgs()`**
 
 Returns all the raw arguments.
 
@@ -74,7 +74,38 @@ Helper.getOptArg('foo');
 // -> ['node', './foo.js', 'foo', '--bar=lol']
 ```
 
-* **`Helper.shellCmd([String:cmd], [String:basePath], [Boolean:verbose])`**
+### **`Helper.promiseIterator([Object:target], [Function:next], [Function:done])`**
+
+Iterate over array or object with a **next()** step, promise-like execution.
+
+```js
+// promiseIterator()
+
+var list = ['a', 'b', 'c'];
+
+Helper.promiseIterator(list, next, done);
+
+function next(item, i, step, stop) {
+	console.log('list item:', item);
+    console.log('list index:', i);
+
+    // you can do some async call here
+    $.ajax('//feed.com/' + item, function(data) {
+    	console.log('got the data!', data);
+		// continue to the next iteration
+	    step();    
+    });
+
+    // or you can break the iteration
+    // stop();
+}
+
+function done() {
+	console.log('iteration done!');
+}
+```
+
+### **`Helper.shellCmd([String:cmd], [String:basePath], [Boolean:verbose])`**
 
 Run a unix shell command using package: **[shelljs](https://www.npmjs.com/package/shelljs)**
 
@@ -91,7 +122,7 @@ Run a unix shell command using package: **[shelljs](https://www.npmjs.com/packag
 Helper.shellCmd('ls -al', '/usr/local');
 ```
 
-* **`Helper.isPathExists([String:path])`**
+### **`Helper.isPathExists([String:path])`**
 
 Check if path exists, either if its a **file or directory**.
 
@@ -101,7 +132,7 @@ Helper.isPathExists('/urs/local');
 // -> true
 ```
 
-* **`Helper.isFileExists([String:path])`**
+### **`Helper.isFileExists([String:path])`**
 
 Check if the path is a **FILE**.
 
@@ -115,7 +146,7 @@ Helper.isFileExists('/urs/local/foo.txt');
 // -> true
 ```
 
-* **`Helper.createDir([String:path])`**
+### **`Helper.createDir([String:path])`**
 
 Creates a directory.
 
@@ -124,7 +155,7 @@ Creates a directory.
 Helper.createDir('/usr/local/new-dir');
 ```
 
-* **`Helper.readFile([String:path])`**
+### **`Helper.readFile([String:path])`**
 
 Read file (utf-8).
 
@@ -134,7 +165,7 @@ Helper.readFile('/usr/local/foo.txt');
 // -> {String} contents
 ```
 
-* **`Helper.writeFile([String:path], [String:content])`**
+### **`Helper.writeFile([String:path], [String:content])`**
 
 Write file (utf-8).
 
@@ -144,7 +175,7 @@ Helper.writeFile('/usr/local/foo.txt', 'hello world!');
 // -> {String} contents
 ```
 
-* **`Helper.base64([String:str], [Boolean:dec = false])`**
+### **`Helper.base64([String:str], [Boolean:dec = false])`**
 
 Base64 encode/decode.
 

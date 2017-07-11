@@ -6,6 +6,7 @@ const stripAnsi = require('strip-ansi');
 const mkdirp = require('mkdirp');
 const fs = require('fs');
 const _ = require('lodash');
+const log = console.log;
 
 const PARAM_ARGV = process.argv;
 const PARAM_ARGS = (() => {
@@ -162,6 +163,81 @@ class Helper {
     base64(str, dec) {
         dec = (typeof dec === 'boolean' && dec) ? true : false;
         return (dec) ? (new Buffer(str, 'base64').toString('ascii')) : (new Buffer(str).toString('base64'));
+    }
+
+    /**
+     * Iterate over array or object with a next() step via promise
+     *
+     * ```
+     * var list = ['a', 'b', 'c'];
+     * promiseIterator(list, function(item, i, step, done){
+     *   // do something asynchronous here
+     *   var feed = '//foo.com/json/' + item;
+     *   // trigger step to proceed to next iteration
+     *   step();
+     *
+     *   // or if you need to break out of the loop mid-iteration
+     *   // done();
+     * }, function(){
+     *   console.log('done!');
+     * });
+     * ```
+     *
+     * @param  {Object}   target array or object
+     * @param  {Function} next function to execute every step
+     * @param  {Function} done function to execute after finish
+     */
+    promiseIterator(target, next, done) {
+        let list = [];
+        let type = null;
+
+        if (Array.isArray(target)) {
+            type = 'array';
+            list = target;
+        } else if (typeof target === 'object') {
+            type = 'object';
+            for (let id in target) {
+                list.push({
+                    id: id,
+                    data: target[id]
+                });
+            }
+        } else {
+            log('[CLI-HELPER] promiseIterator(error): target is not iterable');
+            return done();
+        }
+
+        // requires next function
+        if (typeof next !== 'function') {
+            log('[CLI-HELPER] promiseIterator(error): missing next()');
+            return done();
+        }
+
+        let iter = 0;
+        let len = list.length;
+
+        trigger();
+
+        function trigger() {
+            if (iter < len) {
+                let item = (type === 'object') ? list[iter].data : list[iter];
+                // pass to next function
+                next(item, (type === 'object') ? id : iter, () => {
+                    iter++;
+                    trigger();
+                }, () => { // done (break loop if you need to)
+                    fin();
+                });
+            } else {
+                fin();
+            }
+        }
+
+        function fin() {
+            if (typeof done === 'function') {
+                done();
+            }
+        }
     }
 
 }

@@ -1,6 +1,6 @@
 {
   "name": "cli-helper",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Generic Helpers for file I/O",
   "main": "./helper.js",
   "scripts": {
