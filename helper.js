@@ -222,7 +222,7 @@ class Helper {
             if (iter < len) {
                 let item = (type === 'object') ? list[iter].data : list[iter];
                 // pass to next function
-                next(item, (type === 'object') ? id : iter, () => {
+                next(item, (type === 'object') ? list[iter].id : iter, () => {
                     iter++;
                     trigger();
                 }, () => { // done (break loop if you need to)
