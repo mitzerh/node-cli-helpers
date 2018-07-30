@@ -1,31 +1,25 @@
 {
   "name": "cli-helper",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Generic Helpers for file I/O",
-  "main": "./helper.js",
+  "main": "index.js",
   "scripts": {
-
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bin": {
-    "cli-helper": "./helper.js"
-},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mitzerh/node-cli-helpers.git"
   },
+  "keywords": [],
   "author": "Helcon Mabesa",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mitzerh/node-cli-helpers/issues"
   },
-  "engines": {
-    "node": ">= 4.0.0"
-  },
   "homepage": "https://github.com/mitzerh/node-cli-helpers#readme",
   "dependencies": {
-    "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
     "shelljs": "^0.7.7",
-    "strip-ansi": "^3.0.1"
+    "strip-ansi": "^4.0.0"
   }
 }
