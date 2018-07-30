@@ -5,7 +5,6 @@ const shell = require('shelljs');
 const stripAnsi = require('strip-ansi');
 const mkdirp = require('mkdirp');
 const fs = require('fs');
-const _ = require('lodash');
 const log = console.log;
 
 const PARAM_ARGV = process.argv;
@@ -50,10 +49,15 @@ class Helper {
      * @param  {String} id argument key
      */
     getOptArg(id) {
-        const ret = _.some(PARAM_ARGV, (arg) => {
-            return (arg === id) ? true : false;
-        });
-        return ret;
+        let res = false;
+        const params = this.getRawArgs();
+        for (let i = 0; i < params.length; i++) {
+            if (params[i] === id) {
+                res = true;
+                break;
+            }
+        }
+        return res;
     }
 
     /**
